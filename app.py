@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, render_template
 import joblib
 import numpy as np
 from tensorflow.keras.models import load_model
@@ -21,7 +21,7 @@ def predict():
 
 @app.route('/', methods=['GET'])
 def home():
-    return 'HELLO'
+    return render_template('index.html')
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

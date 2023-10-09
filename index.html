@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Tailwind Layout</title>
+    <!-- Include Tailwind CSS via CDN for simplicity, you can install via npm/yarn for larger projects
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet"> -->
+    
+</head>
+<body class="bg-gray-100 h-screen antialiased leading-none">
+
+<div class="container mx-auto p-4 md:p-8">
+    <div class="bg-white rounded-lg shadow-lg p-6 md:p-8">
+        <h2 class="text-xl text-gray-700 font-bold mb-6">Form Title</h2>
+
+        <!-- Text input fields -->
+        <div class="mb-4">
+            <label class="block text-sm font-semibold text-gray-600 mb-2" for="username">Username</label>
+            <input class="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500" type="text" name="username" id="username" placeholder="Enter your username" />
+        </div>
+        <div class="mb-4">
+            <label class="block text-sm font-semibold text-gray-600 mb-2" for="email">Email</label>
+            <input class="w-full px-4 py-2 border rounded-lg text-gray-700 focus:outline-none focus:border-blue-500" type="email" name="email" id="email" placeholder="Enter your email" />
+        </div>
+
+        <!-- Buttons -->
+        <div class="mt-6">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-lg mr-2 hover:bg-blue-400 focus:outline-none focus:bg-blue-400">Submit</button>
+            <button class="bg-gray-200 text-gray-600 px-4 py-2 rounded-lg hover:bg-gray-300 focus:outline-none focus:bg-gray-300">Cancel</button>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
