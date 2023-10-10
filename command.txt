@@ -1,1 +1,9 @@
 pip install flask tensorflow pandas scikit-learn joblib
+
+
+export FLASK_APP=app.py
+flask run
+
+on gitpod python 3.12 is default, no compatible tensorflowif you run into a problem, downgrade to python 3.11
+pyenv install 3.11
+pyenv local 3.11
