@@ -6,7 +6,7 @@ import numpy as np
 app = Flask(__name__)
 
 # Load the model and scaler
-model = load_model('./model/content/model2')
+model = load_model('./model/content/model')
 scaler = joblib.load('./scaler.pkl')
 
 # prediction function
