@@ -6,9 +6,9 @@ from tensorflow.keras.models import load_model
 app = Flask(__name__)
 
 # Load the model and scaler
-model = load_model('./model/content/model')
-scaler = joblib.load('./model/scaler.pkl')
-dv = joblib.load(('./model/dv.pkl')
+model = load_model('./tf_model')
+scaler = joblib.load('./scaler.pkl')
+dv = joblib.load(('./dv.pkl')
 
 
 @app.route('/result', methods=['POST'])
@@ -16,7 +16,7 @@ def predict():
     try:
         to_predict_list = request.form.to_dict()
         input_data = np.array(to_predict_list) #([request.json['data']])
-        scaled_data = scaler.transform(input_data)
+        scaled_data = scaler.transform(dv.transform(input_data))
         prediction = model.predict(scaled_data)
         return jsonify(prediction.tolist())
     except Exception as e:
