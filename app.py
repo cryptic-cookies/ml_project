@@ -7,8 +7,8 @@ app = Flask(__name__)
 
 # Load the model and scaler
 model = load_model('./model/content/model')
-scaler = joblib.load('./scaler.pkl')
-
+scaler = joblib.load('./model/scaler.pkl')
+dv = joblib.load(('./model/dv.pkl')
 
 
 @app.route('/result', methods=['POST'])
