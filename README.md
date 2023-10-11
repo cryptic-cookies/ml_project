@@ -7,7 +7,7 @@ If you get an error installing tensowflow on gitpod, downgrade to python 3.11 (o
 ```pyenv install 3.11```  
 ```pyenv local 3.11```  
 
-Then proceed to run the web app
+Then run ```pip install flask tensorflow pandas scikit-learn joblib``` again  and proceed to run the web app
 
 ```export FLASK_APP=app.py```  
 ```flask run```  
