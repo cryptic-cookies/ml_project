@@ -1,3 +1,4 @@
+#! /Library/Frameworks/Python.framework/Versions/3.11/bin/python3
 from flask import Flask, request, jsonify, render_template
 import joblib
 import numpy as np
@@ -11,22 +12,37 @@ scaler = joblib.load('./scaler.pkl')
 dv = joblib.load('./dv.pkl')
 
 
-@app.route('/result', methods=['POST'])
-def predict():
-    try:
-        to_predict_list = request.form.to_dict()
-        input_data = np.array(to_predict_list) #([request.json['data']])
-        #input_data = np.array({'State': {209479: 'IL'},'BankState': {209479: 'IL'},'ApprovalFY': {209479: 2007},'Term': {209479: 40},'NoEmp': {209479: 8},'NewBusiness': {209479: True},'CreateJob': {209479: 2},'RetainedJob': {209479: 8},'UrbanRural': {209479: 'Urban'},'RevLineCr': {209479: True},'LowDoc': {209479: False},'DisbursementGross': {209479: 87570.0},'Default': {209479: 1},'ApprovalMonth': {209479: 5},'NAICSCategory': {209479: 'Other services (except public administration) 92 Public administration'}})
-        scaled_data = scaler.transform(dv.transform(input_data))
-        prediction = model.predict(scaled_data)
-        return jsonify(prediction.tolist())
-    except Exception as e:
-        return jsonify({'error': str(e)})
-
 @app.route('/', methods=['GET'])
 def home():
     return render_template('index.html')
 
+@app.route('/result', methods = ['POST'])
+def result():
+    input_data = request.form.to_dict()
+    input_data['RevLineCr'] = bool(input_data['RevLineCr'])
+    input_data['NewBusiness'] = bool(input_data['NewBusiness'])
+    input_data['LowDoc'] = bool(input_data['LowDoc'])
+    input_data['ApprovalFY'] = int(input_data['ApprovalFY'])
+    input_data['Term'] = int(input_data['Term'])
+    input_data['CreateJob'] = int(input_data['CreateJob'])
+    input_data['RetainedJob'] = int(input_data['RetainedJob'])
+    input_data['NoEmp'] = int(input_data['NoEmp'])
+    input_data['ApprovalMonth'] = int(input_data['ApprovalMonth'])
+    input_data['DisbursementGross'] = float(input_data['DisbursementGross'])
+    input_data = [input_data]
+    #return render_template("result.html", prediction = 'none', input_data = input_data)
+    try:
+        input_data = [request.form.to_dict()]
+        transformed_data = dv.transform(input_data)
+        scaled_data = scaler.transform(transformed_data)
+        result = model.predict(scaled_data)        
+        if int(result)== 1:
+            prediction ='Loan will default'
+        else:
+            prediction ='Loan will be PIF'           
+        return render_template("result.html", prediction = prediction, input_data = input_data)
+    except Exception as e:
+        return render_template("result.html", prediction = str(e), input_data = input_data)
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
