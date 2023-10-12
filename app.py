@@ -39,7 +39,7 @@ def result():
         if int(result)== 1:
             prediction ='Loan will default'
         else:
-            prediction ='Loan will be PIF'           
+            prediction ='Loan will be paid in full'           
         return render_template("result.html", prediction = prediction, input_data = input_data)
     except Exception as e:
         return render_template("result.html", prediction = str(e), input_data = input_data)
