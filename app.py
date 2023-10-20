@@ -36,7 +36,7 @@ def result():
         transformed_data = dv.transform(input_data)
         scaled_data = scaler.transform(transformed_data)
         result = model.predict(scaled_data)        
-        if int(result)== 1:
+        if result >= 0.975 :
             prediction ='Loan will default'
         else:
             prediction ='Loan will be paid in full'           
